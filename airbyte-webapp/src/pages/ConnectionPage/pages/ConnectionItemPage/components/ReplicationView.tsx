@@ -125,9 +125,7 @@ export const ReplicationView: React.FC<ReplicationViewProps> = ({ onAfterSaveSch
   };
 
   const onSubmitForm = async (values: ValuesProps) => {
-    if (!activeUpdatingSchemaMode) {
-      await onSubmit(values);
-    }
+    await onSubmit(values);
   };
 
   const onEnterRefreshCatalogMode = async () => {
