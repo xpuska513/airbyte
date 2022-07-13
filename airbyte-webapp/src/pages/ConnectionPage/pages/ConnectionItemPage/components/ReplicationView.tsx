@@ -11,7 +11,6 @@ import LoadingSchema from "components/LoadingSchema";
 
 import { toWebBackendConnectionUpdate } from "core/domain/connection";
 import { ConnectionStatus } from "core/request/AirbyteClient";
-import { useConfirmationModalService } from "hooks/services/ConfirmationModal";
 import {
   useConnectionLoad,
   useResetConnection,
@@ -51,7 +50,6 @@ const Note = styled.span`
 `;
 
 export const ReplicationView: React.FC<ReplicationViewProps> = ({ onAfterSaveSchema, connectionId }) => {
-  const { openConfirmationModal, closeConfirmationModal } = useConfirmationModalService();
   const [activeUpdatingSchemaMode, setActiveUpdatingSchemaMode] = useState(false);
   const [saved, setSaved] = useState(false);
   const [connectionFormValues, setConnectionFormValues] = useState<FormikConnectionFormValues>();
@@ -126,23 +124,8 @@ export const ReplicationView: React.FC<ReplicationViewProps> = ({ onAfterSaveSch
     formikHelpers?.resetForm({ values });
   };
 
-  const openResetDataModal = (values: ValuesProps) => {
-    openConfirmationModal({
-      title: "connection.updateSchema",
-      text: "connection.updateSchemaText",
-      submitButtonText: "connection.updateSchema",
-      submitButtonDataId: "refresh",
-      onSubmit: async () => {
-        await onSubmit(values);
-        closeConfirmationModal();
-      },
-    });
-  };
-
   const onSubmitForm = async (values: ValuesProps) => {
-    if (activeUpdatingSchemaMode) {
-      openResetDataModal(values);
-    } else {
+    if (!activeUpdatingSchemaMode) {
       await onSubmit(values);
     }
   };
