@@ -6,6 +6,7 @@ package io.airbyte.integrations.source.postgres;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.airbyte.commons.json.Jsons;
+import io.airbyte.db.jdbc.JdbcUtils;
 import io.airbyte.integrations.base.IntegrationRunner;
 import io.airbyte.integrations.base.Source;
 import io.airbyte.integrations.base.spec_modification.SpecModifyingSource;
@@ -28,7 +29,7 @@ public class PostgresSourceStrictEncrypt extends SpecModifyingSource implements 
   @Override
   public ConnectorSpecification modifySpec(final ConnectorSpecification originalSpec) {
     final ConnectorSpecification spec = Jsons.clone(originalSpec);
-    ((ObjectNode) spec.getConnectionSpecification().get("properties")).remove("ssl");
+    ((ObjectNode) spec.getConnectionSpecification().get("properties")).remove(JdbcUtils.SSL_KEY);
     return spec;
   }
 
