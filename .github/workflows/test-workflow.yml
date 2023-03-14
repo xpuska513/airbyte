@@ -17,8 +17,8 @@ jobs:
             If you want to stop the robot from every closing this PR add the label `do-not-close` to this PR
             Please consider tagging another reviewer if you are having trouble getting a review
           days-before-issue-stale: -1
-          days-before-pr-stale: 1
-          days-before-pr-close: 1
+          days-before-pr-stale: 0
+          days-before-pr-close: 0
           exempt-pr-labels: "needs-triage, do-not-close"
           exempt-draft-pr: true
           enable-statistics: true
