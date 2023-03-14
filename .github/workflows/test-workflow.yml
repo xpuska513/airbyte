@@ -1,0 +1,24 @@
+name: 'Close stale PRs'
+on:
+  schedule:
+    # at 1:30 everyday
+    - cron: '30 1 * * *'
+  workflow_disptach:
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v5
+        with:
+          stale-pr-message: |
+            This PR was marked as stale due to inactivity and will to be closed soon.  
+            You may re-open the PR if you still want to merge it
+            If you want to stop the robot from every closing this PR add the label `do-not-close` to this PR
+            Please consider tagging another reviewer if you are having trouble getting a review
+          days-before-issue-stale: -1
+          days-before-pr-stale: 30
+          days-before-pr-close: 30
+          exempt-pr-labels: "needs-triage, do-not-close"
+          exempt-draft-pr: true
+          enable-statistics: true
